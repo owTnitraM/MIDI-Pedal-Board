@@ -47,7 +47,7 @@ def calculate_note_once(note, mod_down_flag, mod_up_flag):
 def send_note_on(orig_note, velocity, out_merge):
     """Envia note_on para PyMerged; ignora se orig_note já ativa."""
     if orig_note in active_notes:
-        # já enviamos essa nota (ignore retriggers como nos exemplos)
+        # ignore retriggers
         return
     sent = calculate_note_once(orig_note, mod_down, mod_up)
     out_merge.send(Message('note_on', note=sent, velocity=velocity))
@@ -124,7 +124,7 @@ def make_keyboard_handlers(in_usb, out_teclado, out_merge):
                     if not mod_down:
                         mod_down = True
                         print("[KEY] Ctrl (hold) -> mod_down ON")
-                # NOTE: we DO NOT remap active notes; only new notes will use this mod
+                # NOTE: DO NOT remap active notes; only new notes will use this mod
 
             # Alt handling
             if key in (keyboard.Key.alt_l, keyboard.Key.alt_r):
